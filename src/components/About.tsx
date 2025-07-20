@@ -13,7 +13,7 @@ const About = () => {
           {/* Text Content */}
           <div className="space-y-6">
             <h3 className="text-2xl font-semibold text-gray-900 dark:text-white">
-              Passionate Developer & Problem Solver
+              Passionate Developer & Problem Solver 
             </h3>
             <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
               I&apos;m a dedicated full-stack developer with a passion for creating innovative 
