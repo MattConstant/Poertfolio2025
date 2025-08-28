@@ -14,6 +14,31 @@ export default function LampSection() {
   const [particlePositions, setParticlePositions] = useState<Array<{left: number, top: number}>>([])
   const containerRef = useRef<HTMLDivElement>(null)
 
+  const handleSmoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault()
+    const targetId = href.replace('#', '')
+    
+    if (targetId === 'home') {
+      // For home, scroll to the very top
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      })
+    } else {
+      const targetElement = document.getElementById(targetId)
+      
+      if (targetElement) {
+        const headerHeight = 80 // Account for fixed header height
+        const targetPosition = targetElement.offsetTop - headerHeight
+        
+        window.scrollTo({
+          top: targetPosition,
+          behavior: 'smooth'
+        })
+      }
+    }
+  }
+
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       if (containerRef.current) {
@@ -38,6 +63,7 @@ export default function LampSection() {
 
   return (
     <div
+      id="home"
       ref={containerRef}
       className="relative min-h-screen w-full overflow-hidden bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800 flex flex-col items-center justify-center"
     >
@@ -128,13 +154,15 @@ export default function LampSection() {
           >
             <a
               href="#projects"
-              className="px-8 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 font-medium text-lg shadow-lg hover:shadow-xl transform hover:scale-105"
+              onClick={(e) => handleSmoothScroll(e, '#projects')}
+              className="px-8 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 font-medium text-lg shadow-lg hover:shadow-xl transform hover:scale-105 cursor-pointer"
             >
               View My Work
             </a>
             <a
               href="#contact"
-              className="px-8 py-3 border-2 border-blue-600 text-blue-600 rounded-lg hover:bg-blue-600 hover:text-white transition-all duration-200 font-medium text-lg"
+              onClick={(e) => handleSmoothScroll(e, '#contact')}
+              className="px-8 py-3 border-2 border-blue-600 text-blue-600 rounded-lg hover:bg-blue-600 hover:text-white transition-all duration-200 font-medium text-lg cursor-pointer"
             >
               Get In Touch
             </a>

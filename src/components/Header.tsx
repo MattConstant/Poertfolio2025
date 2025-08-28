@@ -1,7 +1,6 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
 
 const Header = () => {
@@ -15,6 +14,34 @@ const Header = () => {
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
+
+  const handleSmoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault()
+    const targetId = href.replace('#', '')
+    
+    if (targetId === 'home') {
+      // For home, scroll to the very top
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      })
+    } else {
+      const targetElement = document.getElementById(targetId)
+      
+      if (targetElement) {
+        const headerHeight = 80 // Account for fixed header height
+        const targetPosition = targetElement.offsetTop - headerHeight
+        
+        window.scrollTo({
+          top: targetPosition,
+          behavior: 'smooth'
+        })
+      }
+    }
+    
+    // Close mobile menu if open
+    setIsMenuOpen(false)
+  }
 
   const navItems = [
     { name: 'Home', href: '#home' },
@@ -43,12 +70,13 @@ const Header = () => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            <Link 
+            <a 
               href="#home" 
-              className="text-2xl lg:text-3xl font-bold text-white hover:text-blue-400 transition-colors duration-200"
+              onClick={(e) => handleSmoothScroll(e, '#home')}
+              className="text-2xl lg:text-3xl font-bold text-white hover:text-blue-400 transition-colors duration-200 cursor-pointer"
             >
               Portfolio
-            </Link>
+            </a>
           </motion.div>
 
           {/* Desktop Navigation */}
@@ -60,9 +88,10 @@ const Header = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
               >
-                <Link
+                <a
                   href={item.href}
-                  className="relative px-4 py-2 text-gray-300 hover:text-white transition-all duration-200 font-medium group"
+                  onClick={(e) => handleSmoothScroll(e, item.href)}
+                  className="relative px-4 py-2 text-gray-300 hover:text-white transition-all duration-200 font-medium group cursor-pointer"
                 >
                   {item.name}
                   {/* Hover underline effect */}
@@ -70,7 +99,7 @@ const Header = () => {
                   
                   {/* Background highlight on hover */}
                   <span className="absolute inset-0 bg-gray-800/50 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 -z-10"></span>
-                </Link>
+                </a>
               </motion.div>
             ))}
             
@@ -81,12 +110,13 @@ const Header = () => {
               transition={{ duration: 0.5, delay: 0.6 }}
               className="ml-4"
             >
-              <Link
+              <a
                 href="#contact"
-                className="px-6 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full font-medium hover:from-blue-700 hover:to-purple-700 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105"
+                onClick={(e) => handleSmoothScroll(e, '#contact')}
+                className="px-6 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full font-medium hover:from-blue-700 hover:to-purple-700 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105 cursor-pointer"
               >
                 Get Started
-              </Link>
+              </a>
             </motion.div>
           </nav>
 
@@ -139,13 +169,13 @@ const Header = () => {
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.3, delay: index * 0.1 }}
                   >
-                    <Link
+                    <a
                       href={item.href}
-                      className="block px-4 py-3 text-gray-300 hover:text-white hover:bg-gray-800/50 rounded-lg transition-all duration-200 font-medium"
-                      onClick={() => setIsMenuOpen(false)}
+                      onClick={(e) => handleSmoothScroll(e, item.href)}
+                      className="block px-4 py-3 text-gray-300 hover:text-white hover:bg-gray-800/50 rounded-lg transition-all duration-200 font-medium cursor-pointer"
                     >
                       {item.name}
-                    </Link>
+                    </a>
                   </motion.div>
                 ))}
                 
@@ -156,13 +186,13 @@ const Header = () => {
                   transition={{ duration: 0.3, delay: 0.6 }}
                   className="pt-2"
                 >
-                  <Link
+                  <a
                     href="#contact"
-                    className="block px-4 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg font-medium text-center hover:from-blue-700 hover:to-purple-700 transition-all duration-200"
-                    onClick={() => setIsMenuOpen(false)}
+                    onClick={(e) => handleSmoothScroll(e, '#contact')}
+                    className="block px-4 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg font-medium text-center hover:from-blue-700 hover:to-purple-700 transition-all duration-200 cursor-pointer"
                   >
                     Get Started
-                  </Link>
+                  </a>
                 </motion.div>
               </div>
             </motion.div>

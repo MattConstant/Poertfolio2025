@@ -71,7 +71,7 @@ export default function WorkExperience() {
               {experiences.map((experience, index) => (
                 <motion.div
                   key={experience.id}
-                  className={`cursor-pointer p-6 rounded-xl border transition-all duration-300 ${
+                  className={`cursor-pointer p-6 rounded-xl border transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] ${
                     activeIndex === index
                       ? 'bg-white/10 border-blue-500/50 shadow-lg'
                       : 'bg-white/5 border-white/10 hover:bg-white/8'
@@ -79,9 +79,9 @@ export default function WorkExperience() {
                   onClick={() => setActiveIndex(index)}
                   initial={{ opacity: 0, x: -50 }}
                   whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  transition={{ duration: 0.5, delay: index * 0.1, ease: "easeOut" }}
                   viewport={{ once: true }}
-                  whileHover={{ scale: 1.02 }}
+                  style={{ transformOrigin: 'center' }}
                 >
                   <div className="space-y-2">
                     <h3 className="text-lg font-semibold text-white">
@@ -109,7 +109,7 @@ export default function WorkExperience() {
               className="bg-white/5 backdrop-blur-sm rounded-xl p-8 border border-white/10"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
+              transition={{ duration: 0.2, ease: "easeOut" }}
             >
               <div className="space-y-6">
                 <div>

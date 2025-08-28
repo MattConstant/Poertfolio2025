@@ -1,16 +1,10 @@
 'use client'
 
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { useRef, useState } from 'react'
 
 export default function AnimatedProjects() {
   const containerRef = useRef<HTMLDivElement>(null)
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"]
-  })
-
-  const y = useTransform(scrollYProgress, [0, 1], [0, -100])
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
 
   const projects = [
@@ -107,14 +101,14 @@ export default function AnimatedProjects() {
             {projects.filter(project => project.featured).map((project, index) => (
               <motion.div
                 key={project.id}
-                className="group relative bg-white/5 backdrop-blur-sm rounded-2xl overflow-hidden border border-white/10 hover:border-blue-500/50 transition-all duration-300"
+                className="group relative bg-white/5 backdrop-blur-sm rounded-2xl overflow-hidden border border-white/10 hover:border-blue-500/30 transition-all duration-300 hover:-translate-y-1 hover:scale-[1.02]"
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: index * 0.2 }}
+                transition={{ duration: 0.8, delay: index * 0.2, ease: "easeOut" }}
                 viewport={{ once: true }}
-                whileHover={{ y: -10 }}
                 onHoverStart={() => setHoveredIndex(project.id)}
                 onHoverEnd={() => setHoveredIndex(null)}
+                style={{ transformOrigin: 'center' }}
               >
                 {/* Project Image */}
                 <div className="relative h-32 overflow-hidden">
@@ -130,7 +124,7 @@ export default function AnimatedProjects() {
                     className="absolute inset-0 bg-black/60 flex items-center justify-center"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: hoveredIndex === project.id ? 1 : 0 }}
-                    transition={{ duration: 0.3 }}
+                    transition={{ duration: 0.2, ease: "easeInOut" }}
                   >
                     <div className="flex space-x-4">
                       <a
@@ -202,12 +196,12 @@ export default function AnimatedProjects() {
             {projects.map((project, index) => (
               <motion.div
                 key={project.id}
-                className="group bg-white/5 backdrop-blur-sm rounded-xl overflow-hidden border border-white/10 hover:border-blue-500/30 transition-all duration-300"
+                className="group bg-white/5 backdrop-blur-sm rounded-xl overflow-hidden border border-white/10 hover:border-blue-500/30 transition-all duration-300 hover:-translate-y-1 hover:scale-[1.02]"
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
+                transition={{ duration: 0.6, delay: index * 0.1, ease: "easeOut" }}
                 viewport={{ once: true }}
-                whileHover={{ y: -5 }}
+                style={{ transformOrigin: 'center' }}
               >
                 {/* Project Image */}
                 <div className="relative h-24 overflow-hidden">
