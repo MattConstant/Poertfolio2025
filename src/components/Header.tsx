@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { trackNavigationClick, trackScrollToSection } from '@/utils/analytics'
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -18,6 +19,10 @@ const Header = () => {
   const handleSmoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault()
     const targetId = href.replace('#', '')
+    
+    // Track navigation click
+    trackNavigationClick(targetId)
+    trackScrollToSection(targetId)
     
     if (targetId === 'home') {
       // For home, scroll to the very top

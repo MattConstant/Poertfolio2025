@@ -23,6 +23,9 @@ export default function GoogleAnalytics() {
               page_title: document.title,
               page_location: window.location.href,
             });
+            
+            // Make gtag available globally for event tracking
+            window.gtag = gtag;
           `,
         }}
       />

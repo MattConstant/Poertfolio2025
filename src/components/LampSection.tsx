@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion'
 import { useEffect, useRef, useState } from 'react'
+import { trackContactClick, trackScrollToSection } from '@/utils/analytics'
 
 // Seeded random function to ensure consistent positioning
 function seededRandom(seed: number) {
@@ -17,6 +18,15 @@ export default function LampSection() {
   const handleSmoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault()
     const targetId = href.replace('#', '')
+    
+    // Track different types of clicks
+    if (targetId === 'contact') {
+      trackContactClick('Hero CTA Button')
+    } else if (targetId === 'projects') {
+      trackContactClick('View My Work Button')
+    }
+    
+    trackScrollToSection(targetId)
     
     if (targetId === 'home') {
       // For home, scroll to the very top

@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion'
 import { useRef, useState } from 'react'
+import { trackProjectClick, trackContactClick } from '@/utils/analytics'
 
 export default function AnimatedProjects() {
   const containerRef = useRef<HTMLDivElement>(null)
@@ -131,6 +132,7 @@ export default function AnimatedProjects() {
                         href={project.github}
                         target="_blank"
                         rel="noopener noreferrer"
+                        onClick={() => trackProjectClick(project.title, 'github')}
                         className="px-4 py-2 bg-white/20 backdrop-blur-sm rounded-lg text-white hover:bg-white/30 transition-colors duration-200"
                       >
                         GitHub
@@ -139,6 +141,7 @@ export default function AnimatedProjects() {
                         href={project.live}
                         target="_blank"
                         rel="noopener noreferrer"
+                        onClick={() => trackProjectClick(project.title, 'live_demo')}
                         className="px-4 py-2 bg-blue-600 rounded-lg text-white hover:bg-blue-700 transition-colors duration-200"
                       >
                         Live Demo
@@ -218,6 +221,7 @@ export default function AnimatedProjects() {
                         href={project.github}
                         target="_blank"
                         rel="noopener noreferrer"
+                        onClick={() => trackProjectClick(project.title, 'github')}
                         className="px-3 py-1 bg-white/20 backdrop-blur-sm rounded text-white text-sm hover:bg-white/30 transition-colors duration-200"
                       >
                         Code
@@ -226,6 +230,7 @@ export default function AnimatedProjects() {
                         href={project.live}
                         target="_blank"
                         rel="noopener noreferrer"
+                        onClick={() => trackProjectClick(project.title, 'live_demo')}
                         className="px-3 py-1 bg-blue-600 rounded text-white text-sm hover:bg-blue-700 transition-colors duration-200"
                       >
                         Demo
@@ -293,6 +298,7 @@ export default function AnimatedProjects() {
           </p>
           <a
             href="#contact"
+            onClick={() => trackContactClick('Projects CTA Button')}
             className="inline-flex items-center px-8 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-200 font-medium text-lg shadow-lg hover:shadow-xl transform hover:scale-105"
           >
             Get In Touch

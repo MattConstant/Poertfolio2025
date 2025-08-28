@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion'
 import { useState } from 'react'
+import { trackWorkExperienceClick } from '@/utils/analytics'
 
 export default function WorkExperience() {
   const [activeIndex, setActiveIndex] = useState(0)
@@ -76,7 +77,10 @@ export default function WorkExperience() {
                       ? 'bg-white/10 border-blue-500/50 shadow-lg'
                       : 'bg-white/5 border-white/10 hover:bg-white/8'
                   }`}
-                  onClick={() => setActiveIndex(index)}
+                  onClick={() => {
+                    setActiveIndex(index)
+                    trackWorkExperienceClick(experience.company, experience.position)
+                  }}
                   initial={{ opacity: 0, x: -50 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.5, delay: index * 0.1, ease: "easeOut" }}
