@@ -16,17 +16,28 @@ const Contact = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    
+    // Prevent multiple submissions
+    if (isSubmitting) return
+    
     setIsSubmitting(true)
     setSubmitStatus('idle')
     
     try {
+      // Add timeout to prevent hanging requests
+      const controller = new AbortController()
+      const timeoutId = setTimeout(() => controller.abort(), 10000) // 10 second timeout
+      
       const response = await fetch(API_ENDPOINTS.PORTFOLIO_CONTACT, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(formData),
+        signal: controller.signal,
       })
+      
+      clearTimeout(timeoutId)
       
       if (response.ok) {
         setSubmitStatus('success')

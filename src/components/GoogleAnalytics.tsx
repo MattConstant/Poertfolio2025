@@ -22,10 +22,18 @@ export default function GoogleAnalytics() {
             gtag('config', '${GA_TRACKING_ID}', {
               page_title: document.title,
               page_location: window.location.href,
+              send_page_view: false, // We'll handle page views manually
+              anonymize_ip: true, // Privacy optimization
             });
             
             // Make gtag available globally for event tracking
             window.gtag = gtag;
+            
+            // Send initial page view
+            gtag('event', 'page_view', {
+              page_title: document.title,
+              page_location: window.location.href,
+            });
           `,
         }}
       />
