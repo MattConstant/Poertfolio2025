@@ -1,17 +1,17 @@
 'use client'
 
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { useRef } from 'react'
 
 export default function AnimatedAbout() {
   const containerRef = useRef<HTMLDivElement>(null)
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"]
-  })
+  // const { scrollYProgress } = useScroll({
+  //   target: containerRef,
+  //   offset: ["start end", "end start"]
+  // })
 
-  const y = useTransform(scrollYProgress, [0, 1], [0, -50])
-  const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [0, 1, 0])
+  // const y = useTransform(scrollYProgress, [0, 1], [0, -50])
+  // const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [0, 1, 0])
 
   const skills = [
     { name: "React.js", icon: "⚛️", level: 90 },
