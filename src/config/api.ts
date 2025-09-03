@@ -6,8 +6,8 @@ const getApiBaseUrl = () => {
   }
   
   // For production (Vercel), use your home server's public IP or domain
-  // You'll need to update this with your actual home server URL
-  return process.env.NEXT_PUBLIC_API_URL || 'http://your-home-server-ip:3600';
+  // Defaults to your email service host if env var is not provided
+  return process.env.NEXT_PUBLIC_API_URL || 'http://174.115.167.119:8080';
 };
 
 export const API_BASE_URL = getApiBaseUrl();
