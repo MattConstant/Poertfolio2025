@@ -1,13 +1,12 @@
 'use client'
 
-import { motion } from 'framer-motion'
-import { useState } from 'react'
+import { useState, useCallback, useMemo } from 'react'
 import { trackWorkExperienceClick } from '@/utils/analytics'
 
 export default function WorkExperience() {
   const [activeIndex, setActiveIndex] = useState(0)
 
-  const experiences = [
+  const experiences = useMemo(() => [
     {
       id: 1,
       company: "Public Safety Canada",
@@ -37,7 +36,12 @@ export default function WorkExperience() {
         "Meticulous testing approach that improved game quality and performance"
       ]
     }
-  ]
+  ], [])
+
+  const handleExperienceClick = useCallback((company: string, position: string, index: number) => {
+    setActiveIndex(index)
+    trackWorkExperienceClick(company, position)
+  }, [])
 
   return (
     <section id="experience" className="relative py-20 bg-gradient-to-b from-slate-800 to-slate-900 overflow-hidden">
@@ -49,13 +53,7 @@ export default function WorkExperience() {
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          className="text-center mb-16"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-        >
+        <div className="text-center mb-16">
           <h2 className="text-4xl md:text-6xl font-bold text-white mb-4">
             Work Experience
           </h2>
@@ -63,29 +61,21 @@ export default function WorkExperience() {
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
             My professional journey in software development
           </p>
-        </motion.div>
+        </div>
 
         <div className="grid lg:grid-cols-3 gap-8">
           {/* Timeline */}
           <div className="lg:col-span-1">
             <div className="space-y-4">
               {experiences.map((experience, index) => (
-                <motion.div
+                <div
                   key={experience.id}
-                  className={`cursor-pointer p-6 rounded-xl border transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] ${
+                  className={`cursor-pointer p-6 rounded-xl border transition-all duration-300 ${
                     activeIndex === index
                       ? 'bg-white/10 border-blue-500/50 shadow-lg'
                       : 'bg-white/5 border-white/10 hover:bg-white/8'
                   }`}
-                  onClick={() => {
-                    setActiveIndex(index)
-                    trackWorkExperienceClick(experience.company, experience.position)
-                  }}
-                  initial={{ opacity: 0, x: -50 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.1, ease: "easeOut" }}
-                  viewport={{ once: true }}
-                  style={{ transformOrigin: 'center' }}
+                  onClick={() => handleExperienceClick(experience.company, experience.position, index)}
                 >
                   <div className="space-y-2">
                     <h3 className="text-lg font-semibold text-white">
@@ -101,19 +91,16 @@ export default function WorkExperience() {
                       {experience.location}
                     </p>
                   </div>
-                </motion.div>
+                </div>
               ))}
             </div>
           </div>
 
           {/* Experience Details */}
           <div className="lg:col-span-2">
-            <motion.div
+            <div
               key={activeIndex}
-              className="bg-white/5 backdrop-blur-sm rounded-xl p-8 border border-white/10"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.2, ease: "easeOut" }}
+              className="bg-white/5 backdrop-blur-sm rounded-xl p-8 border border-white/10 transition-opacity duration-200"
             >
               <div className="space-y-6">
                 <div>
@@ -160,7 +147,7 @@ export default function WorkExperience() {
                   </ul>
                 </div>
               </div>
-            </motion.div>
+            </div>
           </div>
         </div>
       </div>

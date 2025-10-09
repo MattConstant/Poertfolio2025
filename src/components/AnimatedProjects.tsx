@@ -1,14 +1,16 @@
 'use client'
 
-import { motion } from 'framer-motion'
-import { useRef, useState } from 'react'
+import { useRef, useState, useCallback, useMemo } from 'react'
 import { trackProjectClick, trackContactClick } from '@/utils/analytics'
 
 export default function AnimatedProjects() {
   const containerRef = useRef<HTMLDivElement>(null)
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
+  
+  // Check if user prefers reduced motion
+  const prefersReducedMotion = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
-  const projects = [
+  const projects = useMemo(() => [
     {
       id: 1,
       title: 'Focus Logistics',
@@ -67,7 +69,25 @@ export default function AnimatedProjects() {
       featured: false,
       highlight: '🏆 Best Use of MongoDB - Hackville 2024'
     }
-  ]
+  ], [])
+
+  const handleProjectClick = useCallback((title: string, type: string) => {
+    trackProjectClick(title, type)
+  }, [])
+
+  const handleContactClick = useCallback(() => {
+    trackContactClick('Projects CTA Button')
+  }, [])
+
+  const handleMouseEnter = useCallback((id: number) => {
+    if (!prefersReducedMotion) {
+      setHoveredIndex(id)
+    }
+  }, [prefersReducedMotion])
+
+  const handleMouseLeave = useCallback(() => {
+    setHoveredIndex(null)
+  }, [])
 
   return (
     <section id="projects" ref={containerRef} className="relative py-20 bg-gradient-to-b from-slate-800 to-slate-900 overflow-hidden">
@@ -79,13 +99,7 @@ export default function AnimatedProjects() {
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          className="text-center mb-16"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-        >
+        <div className="text-center mb-16">
           <h2 className="text-4xl md:text-6xl font-bold text-white mb-4">
             My Projects
           </h2>
@@ -93,23 +107,18 @@ export default function AnimatedProjects() {
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
             Here are some of the projects I&apos;ve worked on, showcasing my skills in full-stack development, AI integration, and client solutions.
           </p>
-        </motion.div>
+        </div>
 
         {/* Featured Projects */}
         <div className="mb-16">
           <h3 className="text-2xl font-bold text-white mb-8 text-center">Featured Projects</h3>
           <div className="grid lg:grid-cols-2 gap-8">
-            {projects.filter(project => project.featured).map((project, index) => (
-              <motion.div
+            {projects.filter(project => project.featured).map((project) => (
+              <div
                 key={project.id}
-                className="group relative bg-white/5 backdrop-blur-sm rounded-2xl overflow-hidden border border-white/10 hover:border-blue-500/30 transition-all duration-300 hover:-translate-y-1 hover:scale-[1.02]"
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: index * 0.2, ease: "easeOut" }}
-                viewport={{ once: true }}
-                onHoverStart={() => setHoveredIndex(project.id)}
-                onHoverEnd={() => setHoveredIndex(null)}
-                style={{ transformOrigin: 'center' }}
+                className="group relative bg-white/5 backdrop-blur-sm rounded-2xl overflow-hidden border border-white/10 hover:border-blue-500/30 transition-all duration-300"
+                onMouseEnter={() => handleMouseEnter(project.id)}
+                onMouseLeave={handleMouseLeave}
               >
                 {/* Project Image */}
                 <div className="relative h-32 overflow-hidden">
@@ -121,18 +130,17 @@ export default function AnimatedProjects() {
                   <div className="absolute inset-0 bg-gradient-to-br from-blue-600/10 to-purple-600/10" />
                   
                   {/* Hover overlay */}
-                  <motion.div
-                    className="absolute inset-0 bg-black/60 flex items-center justify-center"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: hoveredIndex === project.id ? 1 : 0 }}
-                    transition={{ duration: 0.2, ease: "easeInOut" }}
+                  <div
+                    className={`absolute inset-0 bg-black/60 flex items-center justify-center transition-opacity duration-200 ${
+                      hoveredIndex === project.id ? 'opacity-100' : 'opacity-0'
+                    }`}
                   >
                     <div className="flex space-x-4">
                       <a
                         href={project.github}
                         target="_blank"
                         rel="noopener noreferrer"
-                        onClick={() => trackProjectClick(project.title, 'github')}
+                        onClick={() => handleProjectClick(project.title, 'github')}
                         className="px-4 py-2 bg-white/20 backdrop-blur-sm rounded-lg text-white hover:bg-white/30 transition-colors duration-200"
                       >
                         GitHub
@@ -141,13 +149,13 @@ export default function AnimatedProjects() {
                         href={project.live}
                         target="_blank"
                         rel="noopener noreferrer"
-                        onClick={() => trackProjectClick(project.title, 'live_demo')}
+                        onClick={() => handleProjectClick(project.title, 'live_demo')}
                         className="px-4 py-2 bg-blue-600 rounded-lg text-white hover:bg-blue-700 transition-colors duration-200"
                       >
                         Live Demo
                       </a>
                     </div>
-                  </motion.div>
+                  </div>
                 </div>
 
                 {/* Project Content */}
@@ -187,7 +195,7 @@ export default function AnimatedProjects() {
                     ))}
                   </div>
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
@@ -196,15 +204,10 @@ export default function AnimatedProjects() {
         <div>
           <h3 className="text-2xl font-bold text-white mb-8 text-center">All Projects</h3>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {projects.map((project, index) => (
-              <motion.div
+            {projects.map((project) => (
+              <div
                 key={project.id}
-                className="group bg-white/5 backdrop-blur-sm rounded-xl overflow-hidden border border-white/10 hover:border-blue-500/30 transition-all duration-300 hover:-translate-y-1 hover:scale-[1.02]"
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1, ease: "easeOut" }}
-                viewport={{ once: true }}
-                style={{ transformOrigin: 'center' }}
+                className="group bg-white/5 backdrop-blur-sm rounded-xl overflow-hidden border border-white/10 hover:border-blue-500/30 transition-all duration-300"
               >
                 {/* Project Image */}
                 <div className="relative h-24 overflow-hidden">
@@ -221,7 +224,7 @@ export default function AnimatedProjects() {
                         href={project.github}
                         target="_blank"
                         rel="noopener noreferrer"
-                        onClick={() => trackProjectClick(project.title, 'github')}
+                        onClick={() => handleProjectClick(project.title, 'github')}
                         className="px-3 py-1 bg-white/20 backdrop-blur-sm rounded text-white text-sm hover:bg-white/30 transition-colors duration-200"
                       >
                         Code
@@ -230,7 +233,7 @@ export default function AnimatedProjects() {
                         href={project.live}
                         target="_blank"
                         rel="noopener noreferrer"
-                        onClick={() => trackProjectClick(project.title, 'live_demo')}
+                        onClick={() => handleProjectClick(project.title, 'live_demo')}
                         className="px-3 py-1 bg-blue-600 rounded text-white text-sm hover:bg-blue-700 transition-colors duration-200"
                       >
                         Demo
@@ -280,30 +283,24 @@ export default function AnimatedProjects() {
                     )}
                   </div>
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
 
         {/* Call to Action */}
-        <motion.div
-          className="text-center mt-16"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-        >
+        <div className="text-center mt-16">
           <p className="text-gray-300 mb-6">
             Interested in working together? Let&apos;s discuss your next project!
           </p>
           <a
             href="#contact"
-            onClick={() => trackContactClick('Projects CTA Button')}
-            className="inline-flex items-center px-8 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-200 font-medium text-lg shadow-lg hover:shadow-xl transform hover:scale-105"
+            onClick={handleContactClick}
+            className="inline-flex items-center px-8 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-200 font-medium text-lg shadow-lg hover:shadow-xl"
           >
             Get In Touch
           </a>
-        </motion.div>
+        </div>
       </div>
     </section>
   )

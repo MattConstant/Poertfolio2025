@@ -1,5 +1,7 @@
+import { useMemo } from 'react'
+
 const Skills = () => {
-  const skillCategories = [
+  const skillCategories = useMemo(() => [
     {
       category: 'Frontend',
       skills: [
@@ -30,7 +32,7 @@ const Skills = () => {
         { name: 'Docker', level: 75 },
       ],
     },
-  ]
+  ], [])
 
   return (
     <section id="skills" className="py-20 bg-white dark:bg-gray-900">
@@ -64,7 +66,7 @@ const Skills = () => {
                     </div>
                     <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
                       <div
-                        className="bg-gradient-to-r from-blue-500 to-blue-600 h-2 rounded-full transition-all duration-1000 ease-out"
+                        className="bg-gradient-to-r from-blue-500 to-blue-600 h-2 rounded-full transition-all duration-500 ease-out"
                         style={{ width: `${skill.level}%` }}
                       ></div>
                     </div>
@@ -81,11 +83,11 @@ const Skills = () => {
             Additional Skills
           </h3>
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
-            {[
+            {useMemo(() => [
               'CI/CD', 'DevOps', 'Kotlin', 'C++', 'Arduino', 'AI Integration',
               'Responsive Design', 'Testing', 'Agile', 'Scrum', 'Problem Solving',
               'Team Leadership', 'Performance Optimization', 'Security Testing', 'Cypress', 'GitLab'
-            ].map((skill) => (
+            ], []).map((skill) => (
               <div
                 key={skill}
                 className="bg-gray-50 dark:bg-gray-800 rounded-lg p-4 text-center hover:bg-blue-50 dark:hover:bg-gray-700 transition-colors duration-200"
