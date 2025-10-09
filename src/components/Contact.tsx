@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useCallback, useMemo } from 'react'
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -24,17 +24,17 @@ const Contact = () => {
   const formRef = useRef<HTMLFormElement>(null)
 
   // Generate math captcha question
-  const generateCaptcha = () => {
+  const generateCaptcha = useCallback(() => {
     const num1 = Math.floor(Math.random() * 10) + 1
     const num2 = Math.floor(Math.random() * 10) + 1
     setCaptchaQuestion({ num1, num2, answer: num1 + num2 })
     setCaptchaAnswer('')
-  }
+  }, [])
 
   // Initialize captcha on component mount
   useEffect(() => {
     generateCaptcha()
-  }, [])
+  }, [generateCaptcha])
 
   // Bot protection validation
   const validateBotProtection = (formData: FormData) => {
@@ -152,14 +152,14 @@ const Contact = () => {
     }
   }
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({
-      ...formData,
+  const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData(prev => ({
+      ...prev,
       [e.target.name]: e.target.value,
-    })
-  }
+    }))
+  }, [])
 
-  const socialLinks = [
+  const socialLinks = useMemo(() => [
     {
       name: 'GitHub',
       url: 'https://github.com/MattConstant',
@@ -178,7 +178,7 @@ const Contact = () => {
         </svg>
       ),
     },
-  ]
+  ], [])
 
   return (
     <section id="contact" className="py-20 bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-900 dark:to-blue-900 relative overflow-hidden">

@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, useCallback } from 'react'
 import { trackContactClick, trackScrollToSection } from '@/utils/analytics'
 
 // Seeded random function to ensure consistent positioning
@@ -14,8 +14,11 @@ export default function LampSection() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const [particlePositions, setParticlePositions] = useState<Array<{left: number, top: number}>>([])
   const containerRef = useRef<HTMLDivElement>(null)
+  
+  // Check if user prefers reduced motion
+  const prefersReducedMotion = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
-  const handleSmoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+  const handleSmoothScroll = useCallback((e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault()
     const targetId = href.replace('#', '')
     
@@ -47,29 +50,37 @@ export default function LampSection() {
         })
       }
     }
-  }
+  }, [])
 
   useEffect(() => {
+    // Only add mouse tracking if user doesn't prefer reduced motion
+    if (prefersReducedMotion) return
+
+    let ticking = false
     const handleMouseMove = (e: MouseEvent) => {
-      if (containerRef.current) {
-        const rect = containerRef.current.getBoundingClientRect()
-        setMousePosition({
-          x: e.clientX - rect.left,
-          y: e.clientY - rect.top,
+      if (!ticking && containerRef.current) {
+        requestAnimationFrame(() => {
+          const rect = containerRef.current!.getBoundingClientRect()
+          setMousePosition({
+            x: e.clientX - rect.left,
+            y: e.clientY - rect.top,
+          })
+          ticking = false
         })
+        ticking = true
       }
     }
 
-    // Generate consistent particle positions
-    const positions = Array.from({ length: 15 }, (_, i) => ({
+    // Generate consistent particle positions (reduced for mobile performance)
+    const positions = Array.from({ length: 8 }, (_, i) => ({
       left: seededRandom(i * 123.456) * 100,
       top: seededRandom(i * 789.012) * 100,
     }))
     setParticlePositions(positions)
 
-    window.addEventListener('mousemove', handleMouseMove)
+    window.addEventListener('mousemove', handleMouseMove, { passive: true })
     return () => window.removeEventListener('mousemove', handleMouseMove)
-  }, [])
+  }, [prefersReducedMotion])
 
   return (
     <div
@@ -98,10 +109,10 @@ export default function LampSection() {
             {/* Simple light beam */}
             <motion.div
               className="absolute top-0 w-[500px] h-[500px] bg-gradient-to-b from-blue-400/15 to-transparent rounded-full"
-              animate={{
+              animate={prefersReducedMotion ? {} : {
                 opacity: [0.3, 0.6, 0.3],
               }}
-              transition={{
+              transition={prefersReducedMotion ? {} : {
                 duration: 4,
                 repeat: Infinity,
                 ease: "easeInOut",
@@ -115,10 +126,10 @@ export default function LampSection() {
               {/* Simple light source */}
               <motion.div
                 className="absolute top-2 left-1/2 transform -translate-x-1/2 w-2 h-2 bg-blue-400 rounded-full"
-                animate={{
+                animate={prefersReducedMotion ? {} : {
                   opacity: [0.7, 1, 0.7],
                 }}
-                transition={{
+                transition={prefersReducedMotion ? {} : {
                   duration: 2,
                   repeat: Infinity,
                   ease: "easeInOut",
@@ -180,38 +191,42 @@ export default function LampSection() {
         </div>
       </div>
 
-      {/* Minimal floating particles */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {particlePositions.map((position, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-1 h-1 bg-gray-400/40 dark:bg-gray-300/40 rounded-full"
-            style={{
-              left: `${position.left}%`,
-              top: `${position.top}%`,
-            }}
-            animate={{
-              y: [0, -20, 0],
-              opacity: [0.2, 0.6, 0.2],
-            }}
-            transition={{
-              duration: 4 + seededRandom(i * 456.789) * 2,
-              repeat: Infinity,
-              delay: seededRandom(i * 321.654) * 2,
-            }}
-          />
-        ))}
-      </div>
+      {/* Minimal floating particles - only show if not reduced motion */}
+      {!prefersReducedMotion && (
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          {particlePositions.map((position, i) => (
+            <motion.div
+              key={i}
+              className="absolute w-1 h-1 bg-gray-400/40 dark:bg-gray-300/40 rounded-full"
+              style={{
+                left: `${position.left}%`,
+                top: `${position.top}%`,
+              }}
+              animate={{
+                y: [0, -20, 0],
+                opacity: [0.2, 0.6, 0.2],
+              }}
+              transition={{
+                duration: 4 + seededRandom(i * 456.789) * 2,
+                repeat: Infinity,
+                delay: seededRandom(i * 321.654) * 2,
+              }}
+            />
+          ))}
+        </div>
+      )}
 
-      {/* Simple mouse follower */}
-      <motion.div
-        className="fixed w-3 h-3 bg-gray-400/60 dark:bg-gray-300/60 rounded-full pointer-events-none z-50"
-        animate={{
-          x: mousePosition.x - 6,
-          y: mousePosition.y - 6,
-        }}
-        transition={{ type: "spring", stiffness: 500, damping: 28 }}
-      />
+      {/* Simple mouse follower - only show if not reduced motion */}
+      {!prefersReducedMotion && (
+        <motion.div
+          className="fixed w-3 h-3 bg-gray-400/60 dark:bg-gray-300/60 rounded-full pointer-events-none z-50"
+          animate={{
+            x: mousePosition.x - 6,
+            y: mousePosition.y - 6,
+          }}
+          transition={{ type: "spring", stiffness: 500, damping: 28 }}
+        />
+      )}
     </div>
   )
 } 

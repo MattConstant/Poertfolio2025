@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Import performance optimizations */
+@import '../styles/performance.css';
+
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
@@ -73,9 +76,9 @@ a {
   background: var(--secondary-color);
 }
 
-/* Smooth transitions */
+/* Smooth transitions - only for specific properties to improve performance */
 * {
-  transition: all 0.2s ease-in-out;
+  transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
 }
 
 /* Custom utility classes */
