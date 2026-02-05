@@ -2,6 +2,7 @@ import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import GamePortal from '@/components/GamePortal'
 import BackToTop from '@/components/BackToTop'
+import { Suspense } from 'react'
 
 export default function GamePage() {
   return (
@@ -17,7 +18,15 @@ export default function GamePage() {
         </div>
 
         <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <GamePortal />
+          <Suspense
+            fallback={
+              <div className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm p-6 text-white/80">
+                Loading games…
+              </div>
+            }
+          >
+            <GamePortal />
+          </Suspense>
         </div>
       </section>
 
