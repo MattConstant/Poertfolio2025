@@ -11,7 +11,6 @@ function seededRandom(seed: number) {
 }
 
 export default function LampSection() {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const [particlePositions, setParticlePositions] = useState<Array<{left: number, top: number}>>([])
   const containerRef = useRef<HTMLDivElement>(null)
   
@@ -53,33 +52,12 @@ export default function LampSection() {
   }, [])
 
   useEffect(() => {
-    // Only add mouse tracking if user doesn't prefer reduced motion
-    if (prefersReducedMotion) return
-
-    let ticking = false
-    const handleMouseMove = (e: MouseEvent) => {
-      if (!ticking && containerRef.current) {
-        requestAnimationFrame(() => {
-          const rect = containerRef.current!.getBoundingClientRect()
-          setMousePosition({
-            x: e.clientX - rect.left,
-            y: e.clientY - rect.top,
-          })
-          ticking = false
-        })
-        ticking = true
-      }
-    }
-
     // Generate consistent particle positions (reduced for mobile performance)
     const positions = Array.from({ length: 8 }, (_, i) => ({
       left: seededRandom(i * 123.456) * 100,
       top: seededRandom(i * 789.012) * 100,
     }))
     setParticlePositions(positions)
-
-    window.addEventListener('mousemove', handleMouseMove, { passive: true })
-    return () => window.removeEventListener('mousemove', handleMouseMove)
   }, [prefersReducedMotion])
 
   return (

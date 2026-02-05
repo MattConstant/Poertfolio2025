@@ -365,9 +365,9 @@ export default function ArcadeDodger() {
     return () => {
       if (rafRef.current) cancelAnimationFrame(rafRef.current)
       ro.disconnect()
-      window.removeEventListener('keydown', onKeyDown as any)
-      window.removeEventListener('keyup', onKeyUp as any)
-      canvas.removeEventListener('pointerdown', onPointerDown as any)
+      window.removeEventListener('keydown', onKeyDown)
+      window.removeEventListener('keyup', onKeyUp)
+      canvas.removeEventListener('pointerdown', onPointerDown)
     }
   }, [best, isRunning, prefersReducedMotion, start, status, stop])
 
