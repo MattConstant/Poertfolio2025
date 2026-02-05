@@ -1,16 +1,32 @@
 'use client'
 
-import { useRef, useState, useCallback, useMemo } from 'react'
+import { useRef, useState, useCallback, useMemo, useEffect } from 'react'
 import { trackContactClick } from '@/utils/analytics'
+import Image from 'next/image'
+import { AnimatePresence, motion } from 'framer-motion'
+
+type Project = {
+  id: number
+  title: string
+  description: string
+  image: string
+  technologies: string[]
+  github: string
+  live: string
+  category: string
+  featured: boolean
+  highlight?: string
+}
 
 export default function AnimatedProjects() {
   const containerRef = useRef<HTMLDivElement>(null)
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
+  const [activeProject, setActiveProject] = useState<Project | null>(null)
   
   // Check if user prefers reduced motion
   const prefersReducedMotion = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
-  const projects = useMemo(() => [
+  const projects: Project[] = useMemo(() => [
     {
       id: 1,
       title: 'Focus Logistics',
@@ -85,8 +101,26 @@ export default function AnimatedProjects() {
     setHoveredIndex(null)
   }, [])
 
+  useEffect(() => {
+    if (!activeProject) return
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setActiveProject(null)
+    }
+    document.addEventListener('keydown', onKeyDown)
+    const prevOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    return () => {
+      document.removeEventListener('keydown', onKeyDown)
+      document.body.style.overflow = prevOverflow
+    }
+  }, [activeProject])
+
   return (
-    <section id="projects" ref={containerRef} className="relative py-20 bg-gradient-to-b from-slate-800 to-slate-900 overflow-hidden">
+    <section
+      id="projects"
+      ref={containerRef}
+      className="relative py-20 bg-gradient-to-b from-slate-800 to-slate-900 overflow-hidden"
+    >
       {/* Background elements */}
       <div className="absolute inset-0">
         <div className="absolute top-20 left-10 w-72 h-72 bg-blue-500/10 rounded-full blur-3xl" />
@@ -112,16 +146,24 @@ export default function AnimatedProjects() {
             {projects.filter(project => project.featured).map((project) => (
               <div
                 key={project.id}
-                className="group relative bg-white/5 backdrop-blur-sm rounded-2xl overflow-hidden border border-white/10 hover:border-blue-500/30 transition-all duration-300"
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') setActiveProject(project)
+                }}
+                onClick={() => setActiveProject(project)}
+                className="group relative bg-white/5 backdrop-blur-sm rounded-2xl overflow-hidden border border-white/10 hover:border-blue-500/30 transition-all duration-300 cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500/60 focus:ring-offset-2 focus:ring-offset-slate-900"
                 onMouseEnter={() => handleMouseEnter(project.id)}
                 onMouseLeave={handleMouseLeave}
               >
                 {/* Project Image */}
                 <div className="relative h-32 overflow-hidden">
-                  <img 
-                    src={project.image} 
+                  <Image
+                    src={project.image}
                     alt={project.title}
-                    className="w-full h-full object-contain transition-transform duration-300 group-hover:scale-105"
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                    className="object-contain transition-transform duration-300 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-br from-blue-600/10 to-purple-600/10" />
                   
@@ -136,7 +178,7 @@ export default function AnimatedProjects() {
                         href={project.github}
                         target="_blank"
                         rel="noopener noreferrer"
-                 
+                        onClick={(e) => e.stopPropagation()}
                         className="px-4 py-2 bg-white/20 backdrop-blur-sm rounded-lg text-white hover:bg-white/30 transition-colors duration-200"
                       >
                         GitHub
@@ -145,6 +187,7 @@ export default function AnimatedProjects() {
                         href={project.live}
                         target="_blank"
                         rel="noopener noreferrer"
+                        onClick={(e) => e.stopPropagation()}
                         className="px-4 py-2 bg-blue-600 rounded-lg text-white hover:bg-blue-700 transition-colors duration-200"
                       >
                         Live Demo
@@ -202,14 +245,22 @@ export default function AnimatedProjects() {
             {projects.map((project) => (
               <div
                 key={project.id}
-                className="group bg-white/5 backdrop-blur-sm rounded-xl overflow-hidden border border-white/10 hover:border-blue-500/30 transition-all duration-300"
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') setActiveProject(project)
+                }}
+                onClick={() => setActiveProject(project)}
+                className="group bg-white/5 backdrop-blur-sm rounded-xl overflow-hidden border border-white/10 hover:border-blue-500/30 transition-all duration-300 cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500/60 focus:ring-offset-2 focus:ring-offset-slate-900"
               >
                 {/* Project Image */}
                 <div className="relative h-24 overflow-hidden">
-                  <img 
-                    src={project.image} 
+                  <Image
+                    src={project.image}
                     alt={project.title}
-                    className="w-full h-full object-contain transition-transform duration-300 group-hover:scale-105"
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    className="object-contain transition-transform duration-300 group-hover:scale-105"
                   />
                   
                   {/* Hover overlay */}
@@ -219,6 +270,7 @@ export default function AnimatedProjects() {
                         href={project.github}
                         target="_blank"
                         rel="noopener noreferrer"
+                        onClick={(e) => e.stopPropagation()}
                         className="px-3 py-1 bg-white/20 backdrop-blur-sm rounded text-white text-sm hover:bg-white/30 transition-colors duration-200"
                       >
                         Code
@@ -227,6 +279,7 @@ export default function AnimatedProjects() {
                         href={project.live}
                         target="_blank"
                         rel="noopener noreferrer"
+                        onClick={(e) => e.stopPropagation()}
                         className="px-3 py-1 bg-blue-600 rounded text-white text-sm hover:bg-blue-700 transition-colors duration-200"
                       >
                         Demo
@@ -295,6 +348,107 @@ export default function AnimatedProjects() {
           </a>
         </div>
       </div>
+
+      {/* Project modal */}
+      <AnimatePresence>
+        {activeProject && (
+          <motion.div
+            className="fixed inset-0 z-[60] flex items-center justify-center p-4"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <motion.button
+              aria-label="Close project details"
+              className="absolute inset-0 bg-black/70"
+              onClick={() => setActiveProject(null)}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            />
+
+            <motion.div
+              role="dialog"
+              aria-modal="true"
+              className="relative w-full max-w-3xl overflow-hidden rounded-2xl border border-white/10 bg-slate-900/95 backdrop-blur-xl shadow-2xl"
+              initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 18, scale: 0.98 }}
+              animate={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, y: 0, scale: 1 }}
+              exit={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 18, scale: 0.98 }}
+              transition={{ type: 'spring', stiffness: 240, damping: 24 }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="relative h-56 sm:h-72">
+                <Image
+                  src={activeProject.image}
+                  alt={activeProject.title}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 768px"
+                  className="object-cover"
+                  priority
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/20 to-transparent" />
+                <button
+                  type="button"
+                  onClick={() => setActiveProject(null)}
+                  className="absolute right-3 top-3 rounded-full border border-white/10 bg-black/40 px-3 py-2 text-white hover:bg-black/60"
+                >
+                  Close
+                </button>
+              </div>
+
+              <div className="p-6">
+                <div className="flex flex-wrap items-center justify-between gap-3">
+                  <div>
+                    <div className="mb-2 flex flex-wrap items-center gap-2">
+                      <span className="px-3 py-1 bg-blue-500/20 text-blue-300 rounded-full text-sm border border-blue-500/30">
+                        {activeProject.category}
+                      </span>
+                      {activeProject.highlight && (
+                        <span className="px-3 py-1 bg-green-500/20 text-green-300 rounded-full text-sm border border-green-500/30 font-medium">
+                          {activeProject.highlight}
+                        </span>
+                      )}
+                    </div>
+                    <h3 className="text-2xl font-bold text-white">{activeProject.title}</h3>
+                  </div>
+
+                  <div className="flex gap-3">
+                    <a
+                      href={activeProject.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-4 py-2 bg-white/10 hover:bg-white/15 text-white rounded-lg border border-white/10 transition-colors"
+                    >
+                      GitHub
+                    </a>
+                    <a
+                      href={activeProject.live}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors"
+                    >
+                      Live Demo
+                    </a>
+                  </div>
+                </div>
+
+                <p className="mt-4 text-gray-300 leading-relaxed">{activeProject.description}</p>
+
+                <div className="mt-5 flex flex-wrap gap-2">
+                  {activeProject.technologies.map((tech) => (
+                    <span
+                      key={tech}
+                      className="px-2 py-1 bg-white/10 text-gray-200 rounded text-xs border border-white/15"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   )
 } 

@@ -215,18 +215,6 @@ export default function LampSection() {
           ))}
         </div>
       )}
-
-      {/* Simple mouse follower - only show if not reduced motion */}
-      {!prefersReducedMotion && (
-        <motion.div
-          className="fixed w-3 h-3 bg-gray-400/60 dark:bg-gray-300/60 rounded-full pointer-events-none z-50"
-          animate={{
-            x: mousePosition.x - 6,
-            y: mousePosition.y - 6,
-          }}
-          transition={{ type: "spring", stiffness: 500, damping: 28 }}
-        />
-      )}
     </div>
   )
 } 

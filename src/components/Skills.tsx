@@ -76,29 +76,6 @@ const Skills = () => {
             </div>
           ))}
         </div>
-
-        {/* Additional Skills Grid */}
-        <div className="mt-16">
-          <h3 className="text-2xl font-semibold text-gray-900 dark:text-white text-center mb-8">
-            Additional Skills
-          </h3>
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
-            {useMemo(() => [
-              'CI/CD', 'DevOps', 'Kotlin', 'C++', 'Arduino', 'AI Integration',
-              'Responsive Design', 'Testing', 'Agile', 'Scrum', 'Problem Solving',
-              'Team Leadership', 'Performance Optimization', 'Security Testing', 'Cypress', 'GitLab'
-            ], []).map((skill) => (
-              <div
-                key={skill}
-                className="bg-gray-50 dark:bg-gray-800 rounded-lg p-4 text-center hover:bg-blue-50 dark:hover:bg-gray-700 transition-colors duration-200"
-              >
-                <span className="text-sm text-gray-700 dark:text-gray-300 font-medium">
-                  {skill}
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
       </div>
     </section>
   )

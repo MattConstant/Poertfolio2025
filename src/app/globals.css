@@ -43,6 +43,11 @@ body {
   overflow-x: hidden;
 }
 
+/* Make anchor navigation land nicely below the fixed header */
+section[id] {
+  scroll-margin-top: 96px;
+}
+
 body {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
