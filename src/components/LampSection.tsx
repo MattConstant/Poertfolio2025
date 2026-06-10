@@ -1,198 +1,131 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { useEffect, useRef, useState, useCallback } from 'react'
+import { useCallback, useEffect, useState } from 'react'
+import { TextFlippingBoard } from '@/components/ui/text-flipping-board'
 import { trackContactClick, trackScrollToSection } from '@/utils/analytics'
 
-// Seeded random function to ensure consistent positioning
-function seededRandom(seed: number) {
-  const x = Math.sin(seed) * 10000
-  return x - Math.floor(x)
-}
+const boardMessages = [
+  'MATTHIEU CONSTANT\nSOFTWARE DEVELOPER',
+  'REACT + SPRING BOOT\nFULL-STACK APPS',
+  'NOW LIVE\nFISHLIST.CA',
+]
 
 export default function LampSection() {
-  const [particlePositions, setParticlePositions] = useState<Array<{left: number, top: number}>>([])
-  const containerRef = useRef<HTMLDivElement>(null)
-  
-  // Check if user prefers reduced motion
-  const prefersReducedMotion = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  const [messageIndex, setMessageIndex] = useState(0)
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setMessageIndex((i) => (i + 1) % boardMessages.length)
+    }, 7000)
+    return () => clearInterval(interval)
+  }, [])
 
   const handleSmoothScroll = useCallback((e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault()
     const targetId = href.replace('#', '')
-    
-    // Track different types of clicks
+
     if (targetId === 'contact') {
       trackContactClick('Hero CTA Button')
     } else if (targetId === 'projects') {
       trackContactClick('View My Work Button')
     }
-    
+
     trackScrollToSection(targetId)
-    
-    if (targetId === 'home') {
-      // For home, scroll to the very top
+
+    const targetElement = document.getElementById(targetId)
+    if (targetElement) {
+      const headerHeight = 80
       window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
+        top: targetElement.offsetTop - headerHeight,
+        behavior: 'smooth',
       })
-    } else {
-      const targetElement = document.getElementById(targetId)
-      
-      if (targetElement) {
-        const headerHeight = 80 // Account for fixed header height
-        const targetPosition = targetElement.offsetTop - headerHeight
-        
-        window.scrollTo({
-          top: targetPosition,
-          behavior: 'smooth'
-        })
-      }
     }
   }, [])
-
-  useEffect(() => {
-    // Generate consistent particle positions (reduced for mobile performance)
-    const positions = Array.from({ length: 8 }, (_, i) => ({
-      left: seededRandom(i * 123.456) * 100,
-      top: seededRandom(i * 789.012) * 100,
-    }))
-    setParticlePositions(positions)
-  }, [prefersReducedMotion])
 
   return (
     <div
       id="home"
-      ref={containerRef}
-      className="relative min-h-screen w-full overflow-hidden bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800 flex flex-col items-center justify-center"
+      className="relative min-h-screen w-full overflow-hidden bg-zinc-950 flex flex-col items-center justify-center"
     >
-      {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800" />
-      
-      {/* Subtle background elements */}
-      <div className="absolute inset-0">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-full blur-3xl" />
-      </div>
+      {/* Dot grid background */}
+      <div
+        className="absolute inset-0 opacity-40"
+        style={{
+          backgroundImage:
+            "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32'%3E%3Ccircle cx='1.5' cy='1.5' r='1' fill='rgba(255,255,255,0.08)'/%3E%3C/svg%3E\")",
+        }}
+      />
 
-      {/* Minimalist Lamp */}
-      <div className="relative z-10">
-        <motion.div
-          className="relative"
+      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-24 pb-16">
+        <motion.h1
+          className="text-5xl sm:text-6xl md:text-7xl font-bold tracking-tight text-white mb-6"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.6, delay: 0.1 }}
         >
-          {/* Lamp container */}
-          <div className="relative mx-auto w-64 h-64 flex flex-col items-center">
-            {/* Simple light beam */}
-            <motion.div
-              className="absolute top-0 w-[500px] h-[500px] bg-gradient-to-b from-blue-400/15 to-transparent rounded-full"
-              animate={prefersReducedMotion ? {} : {
-                opacity: [0.3, 0.6, 0.3],
-              }}
-              transition={prefersReducedMotion ? {} : {
-                duration: 4,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-            />
+          Matthieu Constant
+        </motion.h1>
 
-            {/* Clean lamp shade */}
-            <div className="relative z-20">
-              <div className="w-20 h-12 bg-gradient-to-b from-gray-200/90 to-gray-300/70 dark:from-gray-700/90 dark:to-gray-600/70 rounded-t-full border border-gray-300/30 dark:border-gray-500/30 shadow-sm" />
-              
-              {/* Simple light source */}
-              <motion.div
-                className="absolute top-2 left-1/2 transform -translate-x-1/2 w-2 h-2 bg-blue-400 rounded-full"
-                animate={prefersReducedMotion ? {} : {
-                  opacity: [0.7, 1, 0.7],
-                }}
-                transition={prefersReducedMotion ? {} : {
-                  duration: 2,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-              />
-            </div>
-            
-            {/* Minimal stem */}
-            <div className="w-2 h-24 bg-gradient-to-b from-gray-400/60 to-gray-500/40 dark:from-gray-600/60 dark:to-gray-700/40 rounded-full" />
-            
-            {/* Simple base */}
-            <div className="w-16 h-4 bg-gradient-to-r from-gray-300/60 to-gray-400/40 dark:from-gray-600/60 dark:to-gray-700/40 rounded-full shadow-sm" />
-          </div>
+        <motion.p
+          className="text-lg md:text-xl text-zinc-400 max-w-2xl mx-auto mb-10"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
+          Software developer at Public Safety Canada, building applications
+          with React and Spring Boot.
+        </motion.p>
+
+        {/* Split-flap display board */}
+        <motion.div
+          className="mb-10"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+        >
+          <TextFlippingBoard text={boardMessages[messageIndex]} />
         </motion.div>
 
-        {/* Main content */}
-        <div className="relative z-20 text-center mt-12">
-          <motion.h1
-            className="text-6xl md:text-8xl font-bold text-gray-900 dark:text-white mb-4"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+        <motion.div
+          className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+        >
+          <a
+            href="#projects"
+            onClick={(e) => handleSmoothScroll(e, '#projects')}
+            className="px-8 py-3 bg-blue-600 text-white rounded-full hover:bg-blue-500 transition-colors duration-200 font-medium text-lg cursor-pointer"
           >
-            <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent">
-              Matthieu Constant
-            </span>
-          </motion.h1>
-          
-          <motion.p
-            className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
+            View My Work
+          </a>
+          <a
+            href="#contact"
+            onClick={(e) => handleSmoothScroll(e, '#contact')}
+            className="px-8 py-3 border border-white/15 text-white rounded-full hover:bg-white/5 hover:border-white/30 transition-colors duration-200 font-medium text-lg cursor-pointer"
           >
-            Junior Software Developer & Creative Problem Solver
-          </motion.p>
-          
-          <motion.div
-            className="mt-8 flex flex-col sm:flex-row gap-4 justify-center items-center"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-          >
-            <a
-              href="#projects"
-              onClick={(e) => handleSmoothScroll(e, '#projects')}
-              className="px-8 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 font-medium text-lg shadow-lg hover:shadow-xl transform hover:scale-105 cursor-pointer"
-            >
-              View My Work
-            </a>
-            <a
-              href="#contact"
-              onClick={(e) => handleSmoothScroll(e, '#contact')}
-              className="px-8 py-3 border-2 border-blue-600 text-blue-600 rounded-lg hover:bg-blue-600 hover:text-white transition-all duration-200 font-medium text-lg cursor-pointer"
-            >
-              Get In Touch
-            </a>
-          </motion.div>
-        </div>
+            Get In Touch
+          </a>
+        </motion.div>
       </div>
 
-      {/* Minimal floating particles - only show if not reduced motion */}
-      {!prefersReducedMotion && (
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          {particlePositions.map((position, i) => (
-            <motion.div
-              key={i}
-              className="absolute w-1 h-1 bg-gray-400/40 dark:bg-gray-300/40 rounded-full"
-              style={{
-                left: `${position.left}%`,
-                top: `${position.top}%`,
-              }}
-              animate={{
-                y: [0, -20, 0],
-                opacity: [0.2, 0.6, 0.2],
-              }}
-              transition={{
-                duration: 4 + seededRandom(i * 456.789) * 2,
-                repeat: Infinity,
-                delay: seededRandom(i * 321.654) * 2,
-              }}
-            />
-          ))}
-        </div>
-      )}
+      {/* Scroll hint */}
+      <motion.div
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 text-zinc-500"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.6, delay: 1 }}
+      >
+        <motion.div
+          animate={{ y: [0, 8, 0] }}
+          transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 5v14M5 12l7 7 7-7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </motion.div>
+      </motion.div>
     </div>
   )
-} 
+}

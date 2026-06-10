@@ -116,7 +116,7 @@ export default function GamePortal() {
                 <p className="text-gray-300 mt-2">{g.description}</p>
               </div>
 
-              <div className="shrink-0 w-10 h-10 rounded-xl border border-white/10 bg-gradient-to-br from-blue-500/20 to-purple-500/20 flex items-center justify-center group-hover:from-blue-500/30 group-hover:to-purple-500/30 transition-colors">
+              <div className="shrink-0 w-10 h-10 rounded-xl border border-white/10 bg-blue-500/15 flex items-center justify-center group-hover:bg-blue-500/25 transition-colors">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
                   <path
                     d="M9 18L15 12L9 6"

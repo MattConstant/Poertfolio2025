@@ -181,20 +181,14 @@ const Contact = () => {
   ], [])
 
   return (
-    <section id="contact" className="py-20 bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-900 dark:to-blue-900 relative overflow-hidden">
-      {/* Background decoration */}
-      <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
-      <div className="absolute top-0 right-0 w-96 h-96 bg-blue-400 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse"></div>
-      <div className="absolute bottom-0 left-0 w-96 h-96 bg-purple-400 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse"></div>
-      
+    <section id="contact" className="py-24 bg-zinc-950 border-t border-white/5 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         {/* Header */}
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+          <h2 className="text-4xl md:text-6xl font-bold tracking-tight text-white mb-6">
             Let&apos;s Connect
           </h2>
-          <div className="w-32 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto mb-6 rounded-full"></div>
-          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-xl text-zinc-400 max-w-3xl mx-auto leading-relaxed">
             Ready to bring your ideas to life? I&apos;m always excited to discuss new projects, 
             collaborations, or just have a friendly chat about technology.
           </p>
@@ -202,10 +196,10 @@ const Contact = () => {
 
         <div className="grid lg:grid-cols-2 gap-16 items-start">
           {/* Contact Information */}
-          <div className="space-y-10">
-            <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-xl border border-gray-100 dark:border-gray-700 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
-              <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-8 flex items-center">
-                <span className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg flex items-center justify-center mr-3">
+          <div className="space-y-8">
+            <div className="bg-white/5 rounded-2xl p-8 border border-white/10 hover:border-white/20 transition-colors duration-300">
+              <h3 className="text-2xl font-bold text-white mb-8 flex items-center">
+                <span className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center mr-3">
                   <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
@@ -215,43 +209,43 @@ const Contact = () => {
               
               <div className="space-y-6">
                 <div className="flex items-center space-x-4 group">
-                  <div className="w-14 h-14 bg-gradient-to-br from-blue-100 to-blue-200 dark:from-blue-900 dark:to-blue-800 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                    <svg className="w-6 h-6 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <div className="w-14 h-14 bg-blue-500/10 border border-blue-500/20 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                    <svg className="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                     </svg>
                   </div>
                   <div>
-                    <p className="text-gray-900 dark:text-white font-semibold text-lg">Email</p>
-                    <a href="mailto:matthieu.constant7792@gmail.com" className="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 transition-colors duration-200 text-lg">
+                    <p className="text-white font-semibold text-lg">Email</p>
+                    <a href="mailto:matthieu.constant7792@gmail.com" className="text-blue-400 hover:text-blue-300 transition-colors duration-200 text-lg">
                       matthieu.constant7792@gmail.com
                     </a>
                   </div>
                 </div>
 
                 <div className="flex items-center space-x-4 group">
-                  <div className="w-14 h-14 bg-gradient-to-br from-green-100 to-green-200 dark:from-green-900 dark:to-green-800 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                    <svg className="w-6 h-6 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <div className="w-14 h-14 bg-emerald-500/10 border border-emerald-500/20 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                    <svg className="w-6 h-6 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                     </svg>
                   </div>
                   <div>
-                    <p className="text-gray-900 dark:text-white font-semibold text-lg">Phone</p>
-                    <a href="tel:+16133710413" className="text-green-600 dark:text-green-400 hover:text-green-800 dark:hover:text-green-300 transition-colors duration-200 text-lg">
+                    <p className="text-white font-semibold text-lg">Phone</p>
+                    <a href="tel:+16133710413" className="text-emerald-400 hover:text-emerald-300 transition-colors duration-200 text-lg">
                       (613) 371-0413
                     </a>
                   </div>
                 </div>
 
                 <div className="flex items-center space-x-4 group">
-                  <div className="w-14 h-14 bg-gradient-to-br from-purple-100 to-purple-200 dark:from-purple-900 dark:to-purple-800 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                    <svg className="w-6 h-6 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <div className="w-14 h-14 bg-sky-500/10 border border-sky-500/20 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                    <svg className="w-6 h-6 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                     </svg>
                   </div>
                   <div>
-                    <p className="text-gray-900 dark:text-white font-semibold text-lg">Location</p>
-                    <p className="text-purple-600 dark:text-purple-400 text-lg">
+                    <p className="text-white font-semibold text-lg">Location</p>
+                    <p className="text-sky-400 text-lg">
                       Ottawa, Ontario, Canada
                     </p>
                   </div>
@@ -260,9 +254,9 @@ const Contact = () => {
             </div>
 
             {/* Social Links */}
-            <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-xl border border-gray-100 dark:border-gray-700 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
-              <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center">
-                <span className="w-8 h-8 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg flex items-center justify-center mr-3">
+            <div className="bg-white/5 rounded-2xl p-8 border border-white/10 hover:border-white/20 transition-colors duration-300">
+              <h3 className="text-2xl font-bold text-white mb-6 flex items-center">
+                <span className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center mr-3">
                   <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
                   </svg>
@@ -276,7 +270,7 @@ const Contact = () => {
                     href={link.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-16 h-16 bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-700 dark:to-gray-600 rounded-xl flex items-center justify-center text-gray-700 dark:text-gray-300 hover:from-blue-500 hover:to-purple-500 hover:text-white transition-all duration-300 transform hover:scale-110 hover:shadow-lg"
+                    className="w-16 h-16 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center text-zinc-300 hover:bg-blue-600 hover:border-blue-600 hover:text-white transition-all duration-300 transform hover:scale-110"
                   >
                     {link.icon}
                   </a>
@@ -285,9 +279,9 @@ const Contact = () => {
             </div>
 
             {/* Languages */}
-            <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-xl border border-gray-100 dark:border-gray-700 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
-              <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center">
-                <span className="w-8 h-8 bg-gradient-to-r from-green-500 to-teal-500 rounded-lg flex items-center justify-center mr-3">
+            <div className="bg-white/5 rounded-2xl p-8 border border-white/10 hover:border-white/20 transition-colors duration-300">
+              <h3 className="text-2xl font-bold text-white mb-6 flex items-center">
+                <span className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center mr-3">
                   <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
                   </svg>
@@ -295,13 +289,13 @@ const Contact = () => {
                 Languages
               </h3>
               <div className="flex flex-wrap gap-3">
-                <span className="px-4 py-2 bg-gradient-to-r from-green-100 to-green-200 dark:from-green-900 dark:to-green-800 text-green-800 dark:text-green-200 rounded-full text-sm font-semibold shadow-md hover:shadow-lg transition-shadow duration-200">
+                <span className="px-4 py-2 bg-emerald-500/10 text-emerald-300 border border-emerald-500/20 rounded-full text-sm font-semibold">
                   🇺🇸 English (Native)
                 </span>
-                <span className="px-4 py-2 bg-gradient-to-r from-blue-100 to-blue-200 dark:from-blue-900 dark:to-blue-800 text-blue-800 dark:text-blue-200 rounded-full text-sm font-semibold shadow-md hover:shadow-lg transition-shadow duration-200">
+                <span className="px-4 py-2 bg-blue-500/10 text-blue-300 border border-blue-500/20 rounded-full text-sm font-semibold">
                   🇫🇷 French (Fluent)
                 </span>
-                <span className="px-4 py-2 bg-gradient-to-r from-purple-100 to-purple-200 dark:from-purple-900 dark:to-purple-800 text-purple-800 dark:text-purple-200 rounded-full text-sm font-semibold shadow-md hover:shadow-lg transition-shadow duration-200">
+                <span className="px-4 py-2 bg-sky-500/10 text-sky-300 border border-sky-500/20 rounded-full text-sm font-semibold">
                   🇵🇱 Polish (Basic)
                 </span>
               </div>
@@ -309,9 +303,9 @@ const Contact = () => {
           </div>
 
           {/* Contact Form */}
-          <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-2xl border border-gray-100 dark:border-gray-700 hover:shadow-3xl transition-all duration-300">
-            <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-8 flex items-center">
-              <span className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg flex items-center justify-center mr-3">
+          <div className="bg-white/5 rounded-2xl p-8 border border-white/10 hover:border-white/20 transition-colors duration-300">
+            <h3 className="text-2xl font-bold text-white mb-8 flex items-center">
+              <span className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center mr-3">
                 <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                 </svg>
@@ -322,7 +316,7 @@ const Contact = () => {
             <form ref={formRef} onSubmit={onSubmit} className="space-y-6">
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
-                  <label htmlFor="name" className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                  <label htmlFor="name" className="block text-sm font-semibold text-zinc-300 mb-2">
                     Full Name *
                   </label>
                   <input
@@ -332,13 +326,13 @@ const Contact = () => {
                     value={formData.name}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white transition-all duration-200 hover:border-gray-400 dark:hover:border-gray-500"
+                    className="w-full px-4 py-3 bg-zinc-900 border border-white/10 rounded-xl text-white placeholder-zinc-500 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 hover:border-white/20"
                     placeholder="Your full name"
                   />
                 </div>
                 
                 <div>
-                  <label htmlFor="email" className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                  <label htmlFor="email" className="block text-sm font-semibold text-zinc-300 mb-2">
                     Email Address *
                   </label>
                   <input
@@ -348,14 +342,14 @@ const Contact = () => {
                     value={formData.email}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white transition-all duration-200 hover:border-gray-400 dark:hover:border-gray-500"
+                    className="w-full px-4 py-3 bg-zinc-900 border border-white/10 rounded-xl text-white placeholder-zinc-500 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 hover:border-white/20"
                     placeholder="your.email@example.com"
                   />
                 </div>
               </div>
               
               <div>
-                <label htmlFor="subject" className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                <label htmlFor="subject" className="block text-sm font-semibold text-zinc-300 mb-2">
                   Subject *
                 </label>
                 <input
@@ -365,13 +359,13 @@ const Contact = () => {
                   value={formData.subject}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white transition-all duration-200 hover:border-gray-400 dark:hover:border-gray-500"
+                  className="w-full px-4 py-3 bg-zinc-900 border border-white/10 rounded-xl text-white placeholder-zinc-500 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 hover:border-white/20"
                   placeholder="What's this about?"
                 />
               </div>
               
               <div>
-                <label htmlFor="message" className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                <label htmlFor="message" className="block text-sm font-semibold text-zinc-300 mb-2">
                   Message *
                 </label>
                 <textarea
@@ -381,7 +375,7 @@ const Contact = () => {
                   onChange={handleChange}
                   required
                   rows={6}
-                  className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white transition-all duration-200 hover:border-gray-400 dark:hover:border-gray-500 resize-none"
+                  className="w-full px-4 py-3 bg-zinc-900 border border-white/10 rounded-xl text-white placeholder-zinc-500 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 hover:border-white/20 resize-none"
                   placeholder="Tell me about your project, idea, or just say hello!"
                 />
               </div>
@@ -396,18 +390,18 @@ const Contact = () => {
 
               {/* Math Captcha */}
               <div>
-                <label htmlFor="captcha" className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                <label htmlFor="captcha" className="block text-sm font-semibold text-zinc-300 mb-2">
                   Security Check *
                 </label>
                 <div className="flex items-center space-x-4">
-                  <div className="flex items-center space-x-2 bg-gray-100 dark:bg-gray-700 px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-600">
-                    <span className="text-lg font-bold text-gray-900 dark:text-white">
+                  <div className="flex items-center space-x-2 bg-zinc-900 px-4 py-3 rounded-xl border border-white/10">
+                    <span className="text-lg font-bold text-white">
                       {captchaQuestion.num1} + {captchaQuestion.num2} = ?
                     </span>
                     <button
                       type="button"
                       onClick={generateCaptcha}
-                      className="ml-2 p-1 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors duration-200"
+                      className="ml-2 p-1 text-zinc-500 hover:text-zinc-200 transition-colors duration-200"
                       title="Generate new question"
                     >
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -422,11 +416,11 @@ const Contact = () => {
                     value={captchaAnswer}
                     onChange={(e) => setCaptchaAnswer(e.target.value)}
                     required
-                    className="w-24 px-3 py-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white transition-all duration-200 hover:border-gray-400 dark:hover:border-gray-500 text-center font-semibold"
+                    className="w-24 px-3 py-3 bg-zinc-900 border border-white/10 rounded-xl text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 hover:border-white/20 text-center font-semibold"
                     placeholder="?"
                   />
                 </div>
-                <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                <p className="text-xs text-zinc-500 mt-1">
                   Please solve this simple math problem to verify you&apos;re human
                 </p>
               </div>
@@ -434,7 +428,7 @@ const Contact = () => {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold py-4 px-8 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center space-x-2"
+                className="w-full bg-blue-600 hover:bg-blue-500 text-white font-semibold py-4 px-8 rounded-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2"
               >
                 {isSubmitting ? (
                   <>
@@ -457,19 +451,19 @@ const Contact = () => {
               {result && (
                 <div className={`p-4 rounded-xl ${
                   submitStatus === 'success' 
-                    ? 'bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 border border-green-200 dark:border-green-700' 
+                    ? 'bg-emerald-500/10 text-emerald-300 border border-emerald-500/30' 
                     : submitStatus === 'error'
-                    ? 'bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200 border border-red-200 dark:border-red-700'
-                    : 'bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 border border-blue-200 dark:border-blue-700'
+                    ? 'bg-red-500/10 text-red-300 border border-red-500/30'
+                    : 'bg-blue-500/10 text-blue-300 border border-blue-500/30'
                 }`}>
                   <div className="flex items-center space-x-2">
                     {submitStatus === 'success' && (
-                      <svg className="w-5 h-5 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <svg className="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                       </svg>
                     )}
                     {submitStatus === 'error' && (
-                      <svg className="w-5 h-5 text-red-600 dark:text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <svg className="w-5 h-5 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                       </svg>
                     )}

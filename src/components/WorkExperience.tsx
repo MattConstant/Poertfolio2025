@@ -44,21 +44,13 @@ export default function WorkExperience() {
   }, [])
 
   return (
-    <section id="experience" className="relative py-20 bg-gradient-to-b from-slate-800 to-slate-900 overflow-hidden">
-      {/* Background elements */}
-      <div className="absolute inset-0">
-        <div className="absolute top-10 right-20 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-10 left-20 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl" />
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-gradient-to-r from-cyan-500/5 to-blue-500/5 rounded-full blur-3xl" />
-      </div>
-
+    <section id="experience" className="relative py-24 bg-zinc-950 border-t border-white/5 overflow-hidden">
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-6xl font-bold text-white mb-4">
+          <h2 className="text-4xl md:text-6xl font-bold tracking-tight text-white mb-4">
             Work Experience
           </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto mb-4" />
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+          <p className="text-xl text-zinc-400 max-w-3xl mx-auto">
             My professional journey in software development
           </p>
         </div>
@@ -70,10 +62,10 @@ export default function WorkExperience() {
               {experiences.map((experience, index) => (
                 <div
                   key={experience.id}
-                  className={`cursor-pointer p-6 rounded-xl border transition-all duration-300 ${
+                  className={`cursor-pointer p-6 rounded-2xl border transition-all duration-300 ${
                     activeIndex === index
                       ? 'bg-white/10 border-blue-500/50 shadow-lg'
-                      : 'bg-white/5 border-white/10 hover:bg-white/8'
+                      : 'bg-white/5 border-white/10 hover:bg-white/10 hover:border-white/20'
                   }`}
                   onClick={() => handleExperienceClick(experience.company, experience.position, index)}
                 >
@@ -84,10 +76,10 @@ export default function WorkExperience() {
                     <p className="text-blue-400 font-medium">
                       {experience.company}
                     </p>
-                    <p className="text-gray-400 text-sm">
+                    <p className="text-zinc-500 text-sm">
                       {experience.duration}
                     </p>
-                    <p className="text-gray-300 text-sm">
+                    <p className="text-zinc-400 text-sm">
                       {experience.location}
                     </p>
                   </div>
@@ -100,7 +92,7 @@ export default function WorkExperience() {
           <div className="lg:col-span-2">
             <div
               key={activeIndex}
-              className="bg-white/5 backdrop-blur-sm rounded-xl p-8 border border-white/10 transition-opacity duration-200"
+              className="bg-white/5 rounded-2xl p-8 border border-white/10 transition-opacity duration-200"
             >
               <div className="space-y-6">
                 <div>
@@ -110,12 +102,12 @@ export default function WorkExperience() {
                   <p className="text-blue-400 text-lg font-medium mb-1">
                     {experiences[activeIndex].company}
                   </p>
-                  <p className="text-gray-400">
+                  <p className="text-zinc-500">
                     {experiences[activeIndex].duration} • {experiences[activeIndex].location}
                   </p>
                 </div>
 
-                <p className="text-gray-300 leading-relaxed">
+                <p className="text-zinc-400 leading-relaxed">
                   {experiences[activeIndex].description}
                 </p>
 
@@ -141,7 +133,7 @@ export default function WorkExperience() {
                     {experiences[activeIndex].achievements.map((achievement, index) => (
                       <li key={index} className="flex items-start space-x-3">
                         <span className="text-blue-400 mt-1">•</span>
-                        <span className="text-gray-300">{achievement}</span>
+                        <span className="text-zinc-300">{achievement}</span>
                       </li>
                     ))}
                   </ul>

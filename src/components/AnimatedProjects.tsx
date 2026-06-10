@@ -29,6 +29,18 @@ export default function AnimatedProjects() {
   const projects: Project[] = useMemo(() => [
     {
       id: 1,
+      title: 'FishList',
+      description: 'An Ontario-first fishing app for logging catches, exploring provincial lake data, and sharing trips with friends. Features an interactive map with MNRF stocking data, a social feed with likes and comments, fishing forecasts, and full English/French support.',
+      image: '/images/fishlist.png',
+      technologies: ['Next.js', 'React 19', 'TypeScript', 'Tailwind CSS', 'Spring Boot', 'Leaflet'],
+      github: 'https://github.com/MattConstant/FishList-Frontend',
+      live: 'https://fishlist.ca',
+      category: 'Full Stack',
+      featured: true,
+      highlight: 'Live at fishlist.ca'
+    },
+    {
+      id: 2,
       title: 'Focus Logistics',
       description: 'A comprehensive logistics company website built for a real client. This application is currently being used by the company and has been purchased for commercial use.',
       image: '/images/Focus.png',
@@ -40,7 +52,7 @@ export default function AnimatedProjects() {
       highlight: 'Real client project - purchased and in use'
     },
     {
-      id: 2,
+      id: 3,
       title: 'Locus Point',
       description: 'An innovative app that allows movie location scouts to find the perfect location for their next film. Currently has a waitlist of 100+ users with real stakeholders interested in the project.',
       image: '/images/locafy.png',
@@ -52,7 +64,7 @@ export default function AnimatedProjects() {
       highlight: '100+ user waitlist with stakeholder interest'
     },
     {
-      id: 3,
+      id: 4,
       title: 'TrackBuddy',
       description: 'A web app that allows users to track their driving on the track and improve their driving skills using AI.',
       image: '/images/trackbuddy.png',
@@ -63,7 +75,7 @@ export default function AnimatedProjects() {
       featured: false
     },
     {
-      id: 4,
+      id: 5,
       title: 'Penguino',
       description: 'An Arduino-based interactive robot designed to chat with you vocally in real-time using AI. Built as a capstone project combining speech recognition, text-to-speech synthesis, and AI-driven responses.',
       image: '/images/penguin.png',
@@ -74,7 +86,7 @@ export default function AnimatedProjects() {
       featured: false
     },
     {
-      id: 5,
+      id: 6,
       title: 'BridgeTech',
       description: 'A web app that enables people to donate their used phones to those in need. Leveraging cutting-edge technologies such as the OpenAI API, Figma, and MongoDB. 🏆 Winner of "Best Use of MongoDB" at Hackville 2024!',
       image: '/images/bridgetech.png',
@@ -119,22 +131,14 @@ export default function AnimatedProjects() {
     <section
       id="projects"
       ref={containerRef}
-      className="relative py-20 bg-gradient-to-b from-slate-800 to-slate-900 overflow-hidden"
+      className="relative py-24 bg-zinc-950 border-t border-white/5 overflow-hidden"
     >
-      {/* Background elements */}
-      <div className="absolute inset-0">
-        <div className="absolute top-20 left-10 w-72 h-72 bg-blue-500/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-20 right-10 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl" />
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-cyan-500/5 to-blue-500/5 rounded-full blur-3xl" />
-      </div>
-
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-6xl font-bold text-white mb-4">
+          <h2 className="text-4xl md:text-6xl font-bold tracking-tight text-white mb-4">
             My Projects
           </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto mb-4" />
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+          <p className="text-xl text-zinc-400 max-w-3xl mx-auto">
             Here are some of the projects I&apos;ve worked on, showcasing my skills in full-stack development, AI integration, and client solutions.
           </p>
         </div>
@@ -152,7 +156,7 @@ export default function AnimatedProjects() {
                   if (e.key === 'Enter' || e.key === ' ') setActiveProject(project)
                 }}
                 onClick={() => setActiveProject(project)}
-                className="group relative bg-white/5 backdrop-blur-sm rounded-2xl overflow-hidden border border-white/10 hover:border-blue-500/30 transition-all duration-300 cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500/60 focus:ring-offset-2 focus:ring-offset-slate-900"
+                className="group relative bg-white/5 rounded-2xl overflow-hidden border border-white/10 hover:border-blue-500/40 hover:-translate-y-1 transition-all duration-300 cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500/60 focus:ring-offset-2 focus:ring-offset-zinc-950"
                 onMouseEnter={() => handleMouseEnter(project.id)}
                 onMouseLeave={handleMouseLeave}
               >
@@ -165,8 +169,7 @@ export default function AnimatedProjects() {
                     sizes="(max-width: 1024px) 100vw, 50vw"
                     className="object-contain transition-transform duration-300 group-hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-br from-blue-600/10 to-purple-600/10" />
-                  
+
                   {/* Hover overlay */}
                   <div
                     className={`absolute inset-0 bg-black/60 flex items-center justify-center transition-opacity duration-200 ${
@@ -251,7 +254,7 @@ export default function AnimatedProjects() {
                   if (e.key === 'Enter' || e.key === ' ') setActiveProject(project)
                 }}
                 onClick={() => setActiveProject(project)}
-                className="group bg-white/5 backdrop-blur-sm rounded-xl overflow-hidden border border-white/10 hover:border-blue-500/30 transition-all duration-300 cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500/60 focus:ring-offset-2 focus:ring-offset-slate-900"
+                className="group bg-white/5 rounded-2xl overflow-hidden border border-white/10 hover:border-blue-500/40 hover:-translate-y-1 transition-all duration-300 cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500/60 focus:ring-offset-2 focus:ring-offset-zinc-950"
               >
                 {/* Project Image */}
                 <div className="relative h-24 overflow-hidden">
@@ -336,13 +339,13 @@ export default function AnimatedProjects() {
 
         {/* Call to Action */}
         <div className="text-center mt-16">
-          <p className="text-gray-300 mb-6">
+          <p className="text-zinc-400 mb-6">
             Interested in working together? Let&apos;s discuss your next project!
           </p>
           <a
             href="#contact"
             onClick={handleContactClick}
-            className="inline-flex items-center px-8 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-200 font-medium text-lg shadow-lg hover:shadow-xl"
+            className="inline-flex items-center px-8 py-3 bg-blue-600 text-white rounded-full hover:bg-blue-500 transition-colors duration-200 font-medium text-lg"
           >
             Get In Touch
           </a>
@@ -370,7 +373,7 @@ export default function AnimatedProjects() {
             <motion.div
               role="dialog"
               aria-modal="true"
-              className="relative w-full max-w-3xl overflow-hidden rounded-2xl border border-white/10 bg-slate-900/95 backdrop-blur-xl shadow-2xl"
+              className="relative w-full max-w-3xl overflow-hidden rounded-2xl border border-white/10 bg-zinc-950/95 backdrop-blur-xl shadow-2xl"
               initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 18, scale: 0.98 }}
               animate={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, y: 0, scale: 1 }}
               exit={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 18, scale: 0.98 }}
@@ -386,7 +389,7 @@ export default function AnimatedProjects() {
                   className="object-cover"
                   priority
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/20 to-transparent" />
+                <div className="absolute inset-0 bg-zinc-950/30" />
                 <button
                   type="button"
                   onClick={() => setActiveProject(null)}

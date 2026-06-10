@@ -2,14 +2,14 @@ const Footer = () => {
   const currentYear = new Date().getFullYear()
 
   return (
-    <footer className="bg-gray-900 text-white py-12">
+    <footer className="bg-zinc-950 border-t border-white/5 text-white py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center">
           <div className="mb-8">
-            <h3 className="text-2xl font-bold gradient-text mb-4">
+            <h3 className="text-2xl font-bold text-white mb-4">
               Matthieu Constant
             </h3>
-            <p className="text-gray-400 max-w-md mx-auto">
+            <p className="text-zinc-400 max-w-md mx-auto">
               Building digital experiences that make a difference. 
               Let&apos;s create something amazing together.
             </p>
@@ -52,11 +52,11 @@ const Footer = () => {
           </div>
 
           {/* Copyright */}
-          <div className="border-t border-gray-800 pt-8">
-            <p className="text-gray-400">
+          <div className="border-t border-white/5 pt-8">
+            <p className="text-zinc-400">
               © {currentYear} Matthieu Constant. All rights reserved.
             </p>
-            <p className="text-gray-500 text-sm mt-2">
+            <p className="text-zinc-500 text-sm mt-2">
               Built with Next.js, TypeScript, and Tailwind CSS
             </p>
           </div>
